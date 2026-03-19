@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from tabulate import tabulate
 import numpy as np
-from scipy import stats
 
 
 db = mysql.connector.connect(
@@ -90,7 +89,7 @@ def input_data_performance():
     Employee ID: {employee_id}, Performance Score: {kpi_score}, Attendance Rate: {attendance_rate}%, Late Count: {late_count}, Leave Days: {leave_days}""")
 
 def input_data (): 
-    print("=== Input Data Karyawan dan atau DataPerformance ===")
+    print("=== Input Data Karyawan dan atau Data Performance ===")
     while True:
         inputan = print("""
         1. masukkan data karyawan 
@@ -118,7 +117,7 @@ def top_karyawan ():
     ROUND(
     (attendance_rate/20*0.4) +
     (GREATEST(0, 5 - (late_count * 0.5)) * 0.3) +
-    (kpi_score_score * 0.3),
+    (kpi_score * 0.3),
     2
     ) AS performance_score
     FROM employees e
@@ -143,7 +142,7 @@ def low_karyawan ():
     ROUND(
     (attendance_rate/20*0.4) +
     (GREATEST(0, 5 - (late_count * 0.5)) * 0.3) +
-    (kpi_score_score * 0.3),
+    (kpi_score* 0.3),
     2
     ) AS performance_score
     FROM employees e
@@ -270,12 +269,11 @@ def show_descriptive_statistics(cursor):
 
 
     print("\n=== DESCRIPTIVE STATISTICS ===")
-    print("\n=== DESCRIPTIVE STATISTICS ===")
-    print(f"Mean: {stats.tmean(scores):.2f}")
+    print(f"Mean: {np.mean(scores):.2f}")
     print(f"Median: {np.median(scores):.2f}")
     print(f"Min: {min(scores)}")
     print(f"Max: {max(scores)}")
-    print(f"Standard Deviation: {stats.tstd(scores):.2f}")
+    print(f"Standard Deviation: {np.std(scores):.2f}")
 
 
 # main program
