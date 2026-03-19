@@ -1,6 +1,5 @@
 import mysql.connector
 import matplotlib.pyplot as plt
-import seaborn as sns
 import pandas as pd
 from tabulate import tabulate
 import numpy as np
@@ -20,31 +19,25 @@ def menampilkan_seluruh_data_karyawan():
     
     while True:
         inputan_ID= int(input("masukkan ID Karyawan: "))
-        query = """
+        query = f"""
         SELECT *
         FROM employees e
         JOIN performance p
-        WHERE e.employee_id = p.employee_id AND e.employee_id = %s
+        ON e.employee_id = p.employee_id 
+        and e.employee_id = {inputan_ID}
         """
-        cursor.execute(query,(inputan_ID,))
+        cursor.execute(query)
         result = cursor.fetchone()
-
-        cursor.execute("SELECT * FROM performance LIMIT 1")
 
         columns = [col[0] for col in cursor.description]
 
-        print(columns)
         if result is not None:
             for i in range(len(columns)): 
                 print(f"{columns[i]} : {result[i]}")
         else:
             print("Data karyawan dengan ID tersebut tidak ditemukan.")
             
-       
-            # print(F"""ID: {result[0]}, Nama: {result[1]}, Jenis Kelamin: {result[2]}, Tanggal Lahir: {result[3]}, Tanggal Masuk: {result[4]}, Jabatan: {result[5]}, Gaji: {result[6]}  Performance Score: {result[8]}, Attendance Rate: {result[9]}%, Late Count: {result[10]}, Leave Days: {result[11]}""")
-        # else:
-        #     print("Data karyawan dengan ID tersebut tidak ditemukan.")
-        #     continue
+   
         while True: 
             inputYN = input("Apakah Anda ingin mencari data karyawan lain? (y/n): ").lower() 
             if inputYN not in ['y','n']:
@@ -285,6 +278,7 @@ def show_descriptive_statistics(cursor):
     print(f"Standard Deviation: {stats.tstd(scores):.2f}")
 
 
+# main program
 while True:
 
     print("\n=== HR SYSTEM ===")
