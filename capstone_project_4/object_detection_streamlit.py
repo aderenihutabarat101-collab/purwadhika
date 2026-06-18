@@ -4,7 +4,7 @@ from collections import Counter
 from PIL import Image
 import tempfile
 
-model_name = "./yolov12n.pt"
+model_name = "./best.pt"
 model = YOLO(model_name)
 
 st.title("Vehicle Detection & Counting")
